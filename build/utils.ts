@@ -1,4 +1,4 @@
-export function convertEnv(envConf: Recordable) {
+export function convertEnv(envConf: Recordable): ViteEnv {
     const ret: any = {};
     for (const envKey of Object.keys(envConf)) {
         let realName = envConf[envKey].replace(/\\n/g, '\n')
@@ -21,4 +21,5 @@ export function convertEnv(envConf: Recordable) {
             process.env[envKey] = JSON.stringify(realName);
         }
     }
+    return ret
 }

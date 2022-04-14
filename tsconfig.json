@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "strict": true,
+    "resolveJsonModule": true,
     "jsx": "preserve",
     "sourceMap": true,
     "baseUrl": ".",
@@ -21,7 +22,8 @@
       "scripthost",
     ],
     "types": [
-      "vite/client"
+      "vite/client",
+      "vite-plugin-svg-icons/client"
     ],
     "paths": {
       "/@/*": [

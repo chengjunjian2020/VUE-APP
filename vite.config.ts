@@ -3,6 +3,7 @@ import { loadEnv } from 'vite';
 import { convertEnv } from './build/utils';
 import { resolve } from "path";
 import { OUTPUT_DIR } from './build/config';
+import { createVitePlugins } from './build/vite/plugin';
 // https://vitejs.dev/config/
 
 function pathResolve(dir: string) {
@@ -11,7 +12,7 @@ function pathResolve(dir: string) {
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd(); //返回nodejs当前工作目录
   const env = loadEnv(mode, root);
-
+  console.log("process.argv", process.argv.splice(2));
   //读取env配置布尔类型是字符串，转换成boolean
   const viteEnv = convertEnv(env);
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
@@ -69,6 +70,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       outDir: OUTPUT_DIR,
       brotliSize: false,
       chunkSizeWarningLimit: 1024,
-    }
+    },
+    css: {
+      modules: {
+        generateScopedName: '[name]__[local]___[hash:base64:5]',
+        hashPrefix: 'prefix',
+      }
+    },
+    plugins: createVitePlugins(viteEnv, isBuild),
   }
 }

@@ -4,7 +4,7 @@ import { convertEnv } from './build/utils';
 import { resolve } from 'path';
 import { OUTPUT_DIR } from './build/config';
 import { createVitePlugins } from './build/vite/plugin';
-// https://vitejs.dev/config/
+// https://vitejs.dev/co nfig/
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);

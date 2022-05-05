@@ -73,4 +73,9 @@ module.exports = {
     ],
     'vue/multi-word-component-names': 'off',
   },
+  globals: {
+    ElMessage: 'readonly',
+    ElMessageBox: 'readonly',
+    ElLoading: 'readonly',
+  },
 };

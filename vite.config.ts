@@ -4,7 +4,6 @@ import { convertEnv } from './build/utils';
 import { resolve } from 'path';
 import { OUTPUT_DIR } from './build/config';
 import { createVitePlugins } from './build/vite/plugin';
-// https://vitejs.dev/co nfig/
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -43,10 +42,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           find: /\/@\//,
           replacement: pathResolve('src') + '/',
         },
-        {
-          find: /\/@\//,
-          replacement: pathResolve('public') + '/',
-        },
         // /#/xxxx => types/xxxx
         {
           find: /\/#\//,
@@ -57,7 +52,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     server: {
       port: VITE_PORT,
       host: true,
-      open: true,
+      open: false,
     },
     esbuild: {
       pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
@@ -73,6 +68,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       modules: {
         generateScopedName: '[name]__[local]___[hash:base64:5]',
         hashPrefix: 'prefix',
+      },
+      preprocessorOptions: {
+        less: {
+          charset: false,
+          additionalData: '@import "./src/styles/index.less";',
+        },
       },
     },
     plugins: createVitePlugins(viteEnv, isBuild),

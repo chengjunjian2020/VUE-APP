@@ -15,6 +15,9 @@ declare interface ViteEnv {
   VITE_GENERATE_UI: string;
 }
 declare type Recordable<T = any> = Record<string, T>;
+
+declare type Nullable<T> = T | null;
+
 declare module '*.vue' {
   import { DefineComponent } from 'vue';
   const Component: DefineComponent<{}, {}, any>;

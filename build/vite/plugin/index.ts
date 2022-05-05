@@ -9,6 +9,8 @@ import { configMockPlugin } from './mock';
 import { configSvgIconsPlugin } from './svgSprite'; //生成雪碧图
 import { configCompressPlugin } from './compress'; //才用gzip压缩
 import { configImageminPlugin } from './imagemin'; //图片压缩
+import { configComponents } from './components'; // 按需加载
+import { configAutoImport } from './autoImport'; // 自动导入
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
     VITE_LEGACY,
@@ -18,12 +20,14 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   } = viteEnv;
 
   const vitePlugins: (PluginOption | PluginOption[])[] = [
-    // have to
     vue(),
-    // have to
+    // jsx
     vueJsx(),
     // support name
     vueSetupExtend(),
+    //
+    configComponents(),
+    configAutoImport(),
   ];
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
 
